@@ -1,0 +1,48 @@
+﻿<ui:FluentWindow x:Class="SOPP.StartupItemsManager"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+        xmlns:local="clr-namespace:SOPP"
+        Title="系统优化++ - 系统启动项管理" Height="449" Width="843" WindowStyle="None" ResizeMode="NoResize">
+    <Grid>
+        <ui:TitleBar Title="系统优化++ - 系统启动项管理" Height="40" ShowMaximize="False" CanMaximize="False"/>
+
+        <ui:Button Content="刷新列表" Margin="743,40,0,0" 
+                  Width="100" Height="30" 
+                  Click="RefreshButton_Click" RenderTransformOrigin="0.503,0.848" VerticalAlignment="Top"/>
+
+        <TextBlock x:Name="StatusText" Text="就绪" HorizontalAlignment="Left" 
+                  Margin="46,45,0,0" VerticalAlignment="Top" 
+                  Foreground="{DynamicResource TextFillColorPrimaryBrush}" RenderTransformOrigin="0.549,0.628"/>
+
+        <ui:DataGrid x:Name="StartupItemsGrid" 
+                                ItemsSource="{Binding StartupItems}"
+            AutoGenerateColumns="False"
+            SelectionMode="Single"
+            CanUserAddRows="False"
+            CanUserDeleteRows="False"
+            Margin="0,80,0,0"
+            HorizontalScrollBarVisibility="Auto"
+            Width="Auto">
+
+            <ui:DataGrid.Columns>
+                <DataGridTextColumn Header="名称" Binding="{Binding Name,Mode=OneWay}" Width="1*"/>
+                <DataGridTextColumn Header="路径" Binding="{Binding Path,Mode=OneWay}" Width="3*"/>
+                <DataGridTextColumn Header="位置" Binding="{Binding LocationName,Mode=OneWay}" Width="1.5*"/>
+                <DataGridTextColumn Header="类型" Binding="{Binding ItemType,Mode=OneWay}" Width="0.8*"/>
+                <DataGridTextColumn Header="架构" Binding="{Binding Architecture,Mode=OneWay}" Width="0.7*"/>
+
+                <DataGridTemplateColumn Header="操作" Width="Auto">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <ui:Button Content="删除" 
+                                      Width="60" Height="40"
+                                      Command="{Binding DataContext.DeleteCommand, RelativeSource={RelativeSource AncestorType={x:Type ui:DataGrid}}}"
+                                      CommandParameter="{Binding}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </ui:DataGrid.Columns>
+        </ui:DataGrid>
+    </Grid>
+</ui:FluentWindow>

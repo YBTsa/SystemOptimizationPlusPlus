@@ -1,0 +1,16 @@
+﻿<Page x:Class="SOPP.HomePage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:SOPP"
+      mc:Ignorable="d" 
+      xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+      d:DesignHeight="390" d:DesignWidth="670"
+      Title="Home" Width="670" Height="390">
+
+    <Grid Width="668" Height="388">
+        <ui:TextBlock Text="&#x000A;&#x000A;&#x000A;欢迎来到系统优化++！ &#x000A;&#x000A;&#x000A;该软件旨在优化您的计算机系统的性能。 要开始使用，请点击屏幕左侧的'系统优化'或'清理'按钮。 &#x000A;&#x000A;&#x000A;如果您有任何问题或反馈，请通过提交错误报告或直接联系我们告诉我们。 感谢您使用系统优化！" Foreground="White" TextWrapping="Wrap" FontSize="16"></ui:TextBlock>
+        <ui:TextBlock HorizontalAlignment="Left" Height="32" Margin="0,10,0,0" TextWrapping="Wrap" Text="系统优化++ &gt; 主页" VerticalAlignment="Top" Width="205" TextAlignment="Center" FontSize="20" Foreground="White"/>
+    </Grid>
+</Page>
