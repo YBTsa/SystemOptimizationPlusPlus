@@ -1,0 +1,52 @@
+﻿<Page x:Class="SOPP.Views.Pages.UpdatePage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:helpers="clr-namespace:SOPP.Helpers"
+      xmlns:viewmodels="clr-namespace:SOPP.ViewModels.Pages"
+      xmlns:models="clr-namespace:SOPP.Models"
+      xmlns:local="clr-namespace:SOPP.Views.Pages"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+      Title="UpdatePage"
+      d:DataContext="{d:DesignInstance viewmodels:UpdateViewModel, IsDesignTimeCreatable=True}"
+      d:DesignHeight="450"
+      d:DesignWidth="800"
+      mc:Ignorable="d">
+    <Page.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+        <!-- 反转的布尔到可见性转换器 -->
+        <helpers:InverseBooleanToVisibilityConverter x:Key="InverseBoolToVisibilityConverter" />
+    </Page.Resources>
+
+    <Grid Background="{DynamicResource MaterialBackground}">
+        <!-- 主界面内容 -->
+        <ContentControl x:Name="MainContent"
+                        Visibility="{Binding IsMainContentVisible, Converter={StaticResource BoolToVisibilityConverter}}">
+            <!-- 主界面内容区域 -->
+            <StackPanel>
+                <!-- 你的主界面内容 -->
+                <TextBlock Text="主界面内容" FontSize="24" Margin="20"/>
+
+                <!-- 重新检查按钮 -->
+                <ui:Button Content="检查更新" 
+                           Command="{Binding CheckForUpdatesCommand}"
+                           Margin="20"
+                           Width="150"
+                           Height="36"/>
+            </StackPanel>
+        </ContentControl>
+
+        <!-- 进度指示器 -->
+        <StackPanel HorizontalAlignment="Center" 
+                    VerticalAlignment="Center"
+                    Visibility="{Binding IsCheckingForUpdates, Converter={StaticResource BoolToVisibilityConverter}}">
+            <ui:ProgressRing IsIndeterminate="True" 
+                             Width="64" 
+                             Height="64"/>
+            <TextBlock Margin="0,10,0,0" 
+                       HorizontalAlignment="Center"
+                       Text="{Binding StatusMessage}" />
+        </StackPanel>
+    </Grid>
+</Page>

@@ -1,0 +1,227 @@
+﻿<Page
+    x:Class="SOPP.Views.Pages.DashboardPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:SOPP.Views.Pages"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+    xmlns:viewModels="clr-namespace:SOPP.ViewModels.Pages"
+    xmlns:helpers="clr-namespace:SOPP.Helpers"
+    Title="System Resource Monitor"
+    d:DataContext="{d:DesignInstance Type=viewModels:DashboardViewModel, IsDesignTimeCreatable=True}"
+    d:DesignHeight="410"
+    d:DesignWidth="800">
+    <Page.Resources>
+        <helpers:NetworkUsageConverter x:Key="NetworkUsageConverter"/>
+        <!-- 带边框的卡片样式 -->
+        <Style TargetType="ui:Card">
+            <Setter Property="Padding" Value="10"/>
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect BlurRadius="5" ShadowDepth="2" Opacity="0.1"/>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Page.Resources>
+
+    <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+    <!-- 主容器 -->
+    <Grid Margin="10,0,10,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+        <!-- 标题区域 -->
+
+            <!-- 第一行卡片 -->
+        <Grid Grid.Row="0" Height="190">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- CPU卡片 -->
+            <ui:Card Grid.Column="0">
+                <Grid Height="160">
+                    <ui:FontIcon 
+                        Glyph="&#xE950;" 
+                        Width="40" 
+                        Height="40" 
+                        HorizontalAlignment="Left" 
+                        VerticalAlignment="Top" 
+                        FontFamily="/Assets/SEGOEICONS.TTF#Segoe Fluent Icons"
+                        Foreground="#0078D7"/>
+                    <TextBlock 
+                        HorizontalAlignment="Left" 
+                        VerticalAlignment="Bottom" 
+                        Margin="5" 
+                        Text="CPU Usage"
+                        FontSize="14"/>
+                    <TextBlock 
+                        HorizontalAlignment="Right" 
+                        VerticalAlignment="Bottom" 
+                        Margin="5" 
+                        Text="{Binding CpuUsage,Mode=OneWay,FallbackValue=0%,StringFormat={}{0}%}"
+                        FontSize="18"
+                        FontWeight="SemiBold"/>
+                </Grid>
+            </ui:Card>
+
+            <!-- 内存卡片 -->
+            <ui:Card Grid.Column="1" Height="190">
+                <Grid Height="160">
+                    <ui:FontIcon 
+                        Glyph="&#xE964;" 
+                        Width="40" 
+                        Height="40" 
+                        HorizontalAlignment="Left" 
+                        VerticalAlignment="Top" 
+                        FontFamily="/Assets/SEGOEICONS.TTF#Segoe Fluent Icons"
+                        Foreground="#34C759"/>
+                    <TextBlock 
+                        HorizontalAlignment="Left" 
+                        VerticalAlignment="Bottom" 
+                        Margin="5" 
+                        Text="RAM Usage"
+                        FontSize="14"/>
+                    <TextBlock 
+                        HorizontalAlignment="Right" 
+                        VerticalAlignment="Bottom" 
+                        Margin="5" 
+                        Text="{Binding MemoryUsage,Mode=OneWay,FallbackValue=0%,StringFormat={}{0}%}"
+                        FontSize="18"
+                        FontWeight="SemiBold"/>
+                </Grid>
+            </ui:Card>
+
+            <!-- 磁盘卡片 -->
+            <ui:Card Grid.Column="2" Height="190">
+                <Grid Height="160" Width="244">
+                    <ui:FontIcon 
+                        Glyph="&#xEDA2;" 
+                        Width="40" 
+                        Height="40" 
+                        HorizontalAlignment="Left" 
+                        VerticalAlignment="Top" 
+                        FontFamily="/Assets/SEGOEICONS.TTF#Segoe Fluent Icons"
+                        Foreground="#FF9500"/>
+                    <TextBlock 
+                        HorizontalAlignment="Left" 
+                        VerticalAlignment="Bottom" 
+                        Margin="5" 
+                        Text="Disk Usage"
+                        FontSize="14"/>
+                    <TextBlock 
+                        HorizontalAlignment="Right" 
+                        VerticalAlignment="Bottom" 
+                        Margin="5" 
+                        Text="{Binding DiskUsage,Mode=OneWay,FallbackValue=0%,StringFormat={}{0}%}"
+                        FontSize="18"
+                        FontWeight="SemiBold"/>
+                </Grid>
+            </ui:Card>
+        </Grid>
+
+        <!-- 第二行卡片 -->
+            <Grid Grid.Row="1" Height="190">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- 网络卡片 -->
+                <ui:Card Grid.Column="0">
+                    <Grid Height="160">
+                        <ui:FontIcon 
+                        Glyph="&#xEDA3;" 
+                        Width="40" 
+                        Height="40" 
+                        HorizontalAlignment="Left" 
+                        VerticalAlignment="Top" 
+                        FontFamily="/Assets/SEGOEICONS.TTF#Segoe Fluent Icons"
+                        Foreground="#AF52DE"/>
+                        <TextBlock 
+                        HorizontalAlignment="Left" 
+                        VerticalAlignment="Bottom" 
+                        Margin="5" 
+                        Text="Network Usage"
+                        FontSize="14"/>
+                        <StackPanel 
+                        Orientation="Horizontal" 
+                        HorizontalAlignment="Right" 
+                        VerticalAlignment="Bottom" 
+                        Margin="5">
+                            <StackPanel Orientation="Horizontal">
+                                <ui:FontIcon Glyph="&#xE650;" FontSize="12" FontFamily="/Assets/SEGOEICONS.TTF#Segoe Fluent Icons"/>
+                                <TextBlock Text="{Binding NetworkUploadUsage,Mode=OneWay,FallbackValue=0B,Converter={StaticResource NetworkUsageConverter}}" FontSize="14"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <ui:FontIcon Glyph="&#xE64F;" FontSize="12" FontFamily="/Assets/SEGOEICONS.TTF#Segoe Fluent Icons"/>
+                                <TextBlock Text="{Binding NetworkDownloadUsage,Mode=OneWay,FallbackValue=0B,Converter={StaticResource NetworkUsageConverter}}" FontSize="14"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </Grid>
+                </ui:Card>
+
+                <!-- GPU卡片 -->
+                <ui:Card Grid.Column="1">
+                    <Grid Height="160">
+                        <ui:FontIcon 
+                        Glyph="&#xF211;" 
+                        Width="40" 
+                        Height="40" 
+                        HorizontalAlignment="Left" 
+                        VerticalAlignment="Top" 
+                        FontFamily="/Assets/SEGOEICONS.TTF#Segoe Fluent Icons"
+                        Foreground="#5856D6"/>
+                        <TextBlock 
+                        HorizontalAlignment="Left" 
+                        VerticalAlignment="Bottom" 
+                        Margin="5" 
+                        Text="GPU Usage"
+                        FontSize="14"/>
+                        <TextBlock 
+                        HorizontalAlignment="Right" 
+                        VerticalAlignment="Bottom" 
+                        Margin="5" 
+                        Text="{Binding GpuUsage,Mode=OneWay,FallbackValue=0%,StringFormat={}{0}%}"
+                        FontSize="18"
+                        FontWeight="SemiBold"/>
+                    </Grid>
+                </ui:Card>
+
+                <!-- 进程计数卡片 -->
+                <ui:Card Grid.Column="2">
+                    <Grid Height="160">
+                        <ui:FontIcon 
+                        Glyph="&#xE71D;" 
+                        Width="40" 
+                        Height="40" 
+                        HorizontalAlignment="Left" 
+                        VerticalAlignment="Top" 
+                        FontFamily="/Assets/SEGOEICONS.TTF#Segoe Fluent Icons"
+                        Foreground="#FF3B30"/>
+                        <TextBlock 
+                        HorizontalAlignment="Left" 
+                        VerticalAlignment="Bottom" 
+                        Margin="5" 
+                        Text="Process Count"
+                        FontSize="14"/>
+                        <TextBlock 
+                        HorizontalAlignment="Right" 
+                        VerticalAlignment="Bottom" 
+                        Margin="5" 
+                        Text="{Binding TotalProcessCount,Mode=OneWay,FallbackValue=0}"
+                        FontSize="18"
+                        FontWeight="SemiBold"/>
+                    </Grid>
+                </ui:Card>
+            </Grid>
+        </Grid>
+    </ScrollViewer>
+</Page>
